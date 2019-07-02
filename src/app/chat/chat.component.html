@@ -1,1 +1,32 @@
-<p>chat works!</p>
+<ng-container *ngIf="chat$ | async as chat">
+
+  <div class="top">
+    <span (click)="back()" style="display: inline-block; border: 1px solid grey;padding: 5px; box-sizing: border-box;"> <- back</span>
+    <span>
+        https://chatapp-9b186.firebaseapp.com/chats/{{ chat.id }}
+    </span>
+  </div>
+
+
+  <div class="chat" style="margin: 10px 0;">
+
+
+    <div class="msg" *ngFor="let msg of chat.messages; trackBy: trackByCreated" style="display: flex; align-items: center;">
+
+      <div class="user" style="display: flex; align-items: center;">
+        <img [src]="msg.user?.photoURL" width="30" height="30" style="border-radius: 50%">
+        <span>{{ msg.user?.displayName }}</span>
+      </div>
+
+      <span>: {{ msg.content }}</span>
+    </div>
+
+  </div>
+
+  <div class="form">
+    <input [(ngModel)]="newMsg" (keydown.enter)="submit(chat.id)">
+
+    <button (click)="submit(chat.id)">Send</button>
+  </div>
+
+</ng-container>
