@@ -1,0 +1,26 @@
+<h1>Welcome</h1>
+
+<div *ngIf="currentUser">
+
+  <span>
+     Hello {{currentUser.displayName | json}}
+  </span>
+  <img src="{{currentUser.photoURL}}" alt="" width="40" height="40">
+</div>
+
+<div>
+  <button (click)="auth.googleSignIn()">Join Chat</button>
+  <button>Create New Chat</button>
+</div>
+
+<div>
+  <button (click)="goToChats()">goToChats</button>
+</div>
+
+My chats:
+<ul>
+  <li *ngFor="let chat of chatsList">
+    <span>time: {{chat.createdAt | date:'short'}}</span>
+    <a [routerLink]="['/chats', chat.id]">  {{chat.id}}</a>
+  </li>
+</ul>
